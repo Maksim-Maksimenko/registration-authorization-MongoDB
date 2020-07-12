@@ -2,5 +2,14 @@
 @tailwind  base;
 @tailwind  components;
 /* purgecss end ignore */
-
 @tailwind utilities;
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body, html {
+	height: 100%;
+}

@@ -1,0 +1,127 @@
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.container-login100 {
+	background-image: url('../assets/images/bg-01.jpg');
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.container-login100::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.65);
+}
+
+// .register {
+// 	background-color: rgba(255, 254, 254, 0.808);
+// }
+
+.container-form-btn {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 30px;
+	padding-bottom: 25px;
+}
+
+.form-btn {
+	width: 40%;
+	height: auto;
+	border-radius: 10px;
+	border: 1px solid gray;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	background: linear-gradient(to right, #d10ea0, #ee5a7a);
+	color: white;
+	text-transform: uppercase;
+}
+
+.form-btn:active {
+outline: none;
+}
+
+.form-btn:focus {
+outline: none;
+border: 1px solid black;
+}
+
+.form-btn:hover {
+	box-shadow: 0 0 25px rgba(0,0,0,0.9);
+	transition: 1s;
+}
+
+
+.form-title{
+	display: flex;
+	justify-content: center;
+	padding-bottom: 25px;
+	font-size: 32px;
+	padding-top: 25px;
+	color: white;
+}
+
+.validate-input {
+	display: flex;
+	justify-content: center;
+	border-bottom: 1px solid gray;
+	margin-bottom: 2px;
+}
+
+.input100{
+	width: 100%;
+	height: 80px;
+	outline: none;
+}
+
+ input[type="text"]{
+	border-radius: 15px 15px 0 0;
+}
+
+.validate-form {
+	border-radius: 15px;
+	background-color: rgba(255, 254, 254, 1);
+}
+
+.input-password{
+	background-image: url("data:image/png;base64,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");
+  background-repeat: no-repeat; /*Убираем повтор изображения*/
+	background-position: 4px; /*Позиционируем*/
+	background-size: 20px;
+	padding-left: 35px; /*отступ слева от ввода, чтобы текст не был на картинке(выбирать по размеру картинки)*/
+}
+
+.input-text{
+	background-image: url("https://cdn.iconscout.com/icon/free/png-256/laptop-user-1-1179329.png");
+  background-repeat: no-repeat; /*Убираем повтор изображения*/
+	background-position: 4px; /*Позиционируем*/
+	background-size: 20px;
+	padding-left: 35px; /*отступ слева от ввода, чтобы текст не был на картинке(выбирать по размеру картинки)*/
+}
+
+.validate-input:hover {
+	border-bottom: 1px solid rgb(255, 0, 0);
+	box-shadow: 0 5px 5px -5px #333;
+	transition: 1s;
+}
+
+
+
+
