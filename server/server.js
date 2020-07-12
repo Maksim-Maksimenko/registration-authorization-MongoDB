@@ -5,13 +5,22 @@ import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
-
 import cookieParser from 'cookie-parser'
+
+import mongooseService from './services/mongoose'
 import config from './config'
 import Html from '../client/html'
+import User from './model/User.model'
 
 const Root = () => ''
+mongooseService.connect()
 
+// const user = new User({
+//   email: 'test@gmail.com',
+//   password: '12345'
+// })
+// user.save()
+// создали для тестов пользователя
 try {
   // eslint-disable-next-line import/no-unresolved
   // ;(async () => {
@@ -40,6 +49,12 @@ const middleware = [
 ]
 
 middleware.forEach((it) => server.use(it))
+
+server.post('/api/v1/auth', (req, res) => {
+  // api для регистрации
+  console.log(req.body)
+  res.json({ status: 'ok' })
+})
 
 server.use('/api/', (req, res) => {
   res.status(404)

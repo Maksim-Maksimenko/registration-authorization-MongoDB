@@ -1,9 +1,14 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { history } from '../redux'
 import Head from './head'
 import './login.scss'
+import { upadateLogin, upadatePassword, logIn } from '../redux/reducers/auth'
 
 const Login = () => {
+  const dispatch = useDispatch()
+  const login = useSelector((s) => s.auth.login)
+  const password = useSelector((s) => s.auth.password)
   return (
     <div>
       <Head title="Hello" />
@@ -13,14 +18,33 @@ const Login = () => {
             <div className="form-title">Account Login</div>
             <form className="form validate-form ">
               <div className="validate-input input-text" data-validate="Enter username">
-                <input className="input100" type="text" name="username" placeholder="User name" />
+                <input
+                  onChange={(e) => {
+                    dispatch(upadateLogin(e.target.value))
+                  }}
+                  value={login}
+                  className="input100"
+                  type="text"
+                  name="username"
+                  placeholder="User name"
+                />
               </div>
               <div className="validate-input input-password" data-validate="Enter password">
-                <input className="input100" type="password" name="pass" placeholder="Password" />
+                <input
+                  onChange={(e) => {
+                    dispatch(upadatePassword(e.target.value))
+                  }}
+                  value={password}
+                  className="input100"
+                  type="password"
+                  name="pass"
+                  placeholder="Password"
+                />
               </div>
               <div className="container-form-btn">
                 <button
                   onClick={() => {
+                    dispatch(logIn())
                     history.push(`/mainWindowChat`)
                   }}
                   type="button"
