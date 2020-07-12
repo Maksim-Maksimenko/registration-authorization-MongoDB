@@ -57,39 +57,40 @@ passport.use('jwt', passportJWT.jwt)
 
 middleware.forEach((it) => server.use(it))
 
-server.post('/api/v1/auth', async (req, res) => {
-  // api для регистрации
-  console.log(req.body)
+server.get('/api/v1/auth', async (req, res) => {
   try {
-    const user = await User.findAndValidateUser(req.body)
+    const jwtUser = jwt.verify(req.cookies.token, config.secret)
+    const user = await User.findById(jwtUser.uid)
+
     const payload = { uid: user.id }
     const token = jwt.sign(payload, config.secret, { expiresIn: '48h' })
     delete user.password
     res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
     res.json({ status: 'ok', token, user })
   } catch (err) {
-    res.json({ status: 'error' })
+    console.log(err)
+    res.json({ status: 'error', err })
+  }
+})
+
+server.post('/api/v1/auth', async (req, res) => {
+  console.log(req.body)
+  try {
+    const user = await User.findAndValidateUser(req.body)
+
+    const payload = { uid: user.id }
+    const token = jwt.sign(payload, config.secret, { expiresIn: '48h' })
+    delete user.password
+    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
+    res.json({ status: 'ok', token, user })
+  } catch (err) {
+    console.log(err)
+    res.json({ status: 'error', err })
   }
 })
 
 server.get('/api/v1/user-info', auth([]), (req, res) => {
   res.json({ status: 'ok' })
-})
-
-server.get('/api/v1/auth', async (req, res) => {
-  // api для регистрации
-  console.log(req.body)
-  try {
-    const jwtUser = jwt.verify(req.cookies.token, config.secret)
-    const user = await User.findById(jwtUser.uid)
-    const payload = { uid: user.id }
-    const token = jwt.sign(payload, config.secret, { expiresIn: '48h' })
-    delete user.password
-    res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
-    res.json({ status: 'ok', token, user })
-  } catch (err) {
-    res.json({ status: 'error' })
-  }
 })
 
 server.use('/api/', (req, res) => {
