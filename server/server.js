@@ -39,7 +39,7 @@ try {
   console.log(' run yarn build:prod to enable ssr')
 }
 
-let connections = []
+let connections = [] // array соединений вебсокет
 
 const port = process.env.PORT || 8090
 const server = express()
@@ -82,6 +82,9 @@ server.post('/api/v1/auth', async (req, res) => {
     const token = jwt.sign(payload, config.secret, { expiresIn: '48h' })
     delete user.password
     res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
+    connections.forEach((c) => {
+      c.write(JSON.stringify({ type: 'SHOW_MASSAGE', message: `Hello, ${user.email}` }))
+    }) // всплывающе сообщение через веб сокеты
     res.json({ status: 'ok', token, user })
   } catch (err) {
     console.log(err)
@@ -132,6 +135,7 @@ if (config.isSocketsEnabled) {
   const echo = sockjs.createServer()
   echo.on('connection', (conn) => {
     connections.push(conn)
+    // conn.write(JSON.stringify({ type: 'SHOW_MASSAGE', message: 'Hello' }))
     conn.on('data', async () => {})
 
     conn.on('close', () => {
