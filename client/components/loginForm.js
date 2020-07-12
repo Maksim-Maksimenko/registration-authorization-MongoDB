@@ -45,7 +45,6 @@ const Login = () => {
                 <button
                   onClick={() => {
                     dispatch(logIn())
-                    history.push(`/mainWindowChat`)
                   }}
                   type="button"
                   className="form-btn"
