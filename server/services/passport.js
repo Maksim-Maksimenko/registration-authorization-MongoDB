@@ -1,11 +1,8 @@
-// стротегия авторизации
-
 import passportJWT from 'passport-jwt'
 import User from '../model/User.model'
 import config from '../config'
 
 const cookieExtractor = (req) => {
-  // будет вытаскивать токен из куки либо говорить что нечего нет
   return req && req.cookies && req.cookies.token
 }
 
@@ -19,9 +16,11 @@ const jwtStrategy = new passportJWT.Strategy(jwtOptions, (jwtPayload, done) => {
     if (err) {
       return done(err, null)
     }
+
     if (user) {
       return done(null, user)
     }
+
     return done(null, false)
   })
 })

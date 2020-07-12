@@ -15,9 +15,10 @@ import ChatWindow from '../components/ chatWindow'
 import Startup from './startup'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
+	const auth = useSelector((s) => s.auth)
   const func = (props) =>
-    !!rest.user && !!rest.user.name && !!rest.token ? (
-      <Redirect to={{ pathname: '/' }} />
+    !!auth.user && !!auth.token ? (
+      <Redirect to={{ pathname: '/mainWindowChat' }} />
     ) : (
       <Component {...props} />
     )
@@ -25,7 +26,7 @@ const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
 }
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-	const auth = useSelector(s => s.auth)
+  const auth = useSelector((s) => s.auth)
   const func = (props) =>
     !!auth.user && !!auth.token ? (
       <Component {...props} />
@@ -74,7 +75,7 @@ const RootComponent = (props) => {
       <RouterSelector history={history} location={props.location} context={props.context}>
         <Startup>
           <Switch>
-            <Route exact path="/login" component={() => <Login />} />
+            <OnlyAnonymousRoute exact path="/login" component={() => <Login />} />
             <Route exact path="/" component={() => <Login />} />
             <Route exact path="/registration" component={() => <Registration />} />
             {/* <Route exact path="/mainWindowChat" component={() => <ChatWindow />} /> */}

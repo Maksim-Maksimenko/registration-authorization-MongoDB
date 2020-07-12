@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true, //  помечаем обезательные поля
+      required: true,
       unique: true
     },
     role: {
@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     }
   },
   {
-    timestamp: true // отслеживать изминие
+    timestamp: true
   }
 )
 
@@ -27,13 +27,14 @@ userSchema.pre('save', async function (next) {
     return next()
   }
 
-  this.password = bcrypt.hashSync(this.password) // для хеширования, запороливания
+  this.password = bcrypt.hashSync(this.password)
 
   return next()
 })
 
 userSchema.method({
   passwordMatches(password) {
+    console.log(bcrypt.hashSync(password), this.password)
     return bcrypt.compareSync(password, this.password)
   }
 })
@@ -41,11 +42,10 @@ userSchema.method({
 userSchema.statics = {
   async findAndValidateUser({ email, password }) {
     if (!email) {
-      throw Error('No email')
+      throw new Error('No Email')
     }
-
     if (!password) {
-      throw Error('No password')
+      throw new Error('No Password')
     }
 
     const user = await this.findOne({ email }).exec()
@@ -62,5 +62,4 @@ userSchema.statics = {
     return user
   }
 }
-
 export default mongoose.model('users', userSchema)

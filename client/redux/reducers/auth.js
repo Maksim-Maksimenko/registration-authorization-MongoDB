@@ -1,13 +1,16 @@
+import Cookies from 'universal-cookie'
 import { history } from '..'
 
 const UPDATE_LOGIN = 'UPDATE_LOGIN'
 const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 const LOGIN = 'LOGIN'
 
+const cookies = new Cookies()
+
 const initialState = {
   email: '',
   password: '',
-  token: '',
+  token: cookies.get('token'),
   user: {}
 }
 
@@ -55,3 +58,26 @@ export function logIn() {
       })
   }
 }
+
+export function trySignIn() {
+  return (dispatch) => {
+    fetch('/api/v1/auth')
+      .then((r) => r.json())
+      .then((date) => {
+        dispatch({ type: LOGIN, token: date.token, user: date.user })
+        history.push('/mainWindowChat')
+      })
+  }
+}
+
+export function tryGetUserInfo() {
+  return (dispatch) => {
+    fetch('api/v1/user-info')
+      .then((r) => r.json())
+      .then((date) => {
+        dispatch({ type: LOGIN, token: date.token, user: date.user })
+        console.log(date)
+      })
+  }
+}
+
