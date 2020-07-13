@@ -1,0 +1,55 @@
+.container-channel {
+
+	background-color: rgba(0, 0, 0, 0.836);
+	height: 100vh;
+	width: 25vw;
+	color: white;
+}
+
+.add-channel {
+	display: flex;
+	align-items:flex-end;
+	height: 100%;
+	width: 70%;
+	border-right: 1px solid rgb(247, 247, 247);
+	box-shadow: 0 0 10px rgb(253, 249, 0);
+}
+
+.add-channel:hover {
+	box-shadow: 0 0 25px rgb(253, 249, 0);
+	transition: 1s;
+}
+
+
+.button-add-chnnel {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	color: black;
+	background-color: #fff;
+	margin-top: 10px;
+}
+
+.add-channel-btn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: auto;
+	width:100%;
+	margin-bottom: 30px;
+}
+
+.button-add-chnnel:hover {
+	box-shadow: 0 0 20px rgb(253, 249, 0);;
+	transition: 0.7s;
+	color: rgb(137, 7, 170);
+}
+
+.button-add-chnnel:active {
+	box-shadow: 0 0 10px rgba(102, 2, 122, 0.5);
+}
+
+.button-add-chnnel:focus {
+	outline: none;
+	box-shadow: 0 0 20px rgb(253, 249, 0);
+}

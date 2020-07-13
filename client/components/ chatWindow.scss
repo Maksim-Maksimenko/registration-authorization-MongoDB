@@ -1,0 +1,25 @@
+.container-chat{
+	display: flex;
+	background-image: url('../assets/images/bg-01.jpg');
+  width: 100%;
+  min-height: 100vh;
+  // justify-content: center;
+  // align-items: center;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+	// // justify-content: flex-start;
+	// max-width: 70%;
+	// margin: 0
+}
+
+.container-window-channel {
+	// display: flex;
+	// flex-direction: column;
+	// height: 100vh;
+	// max-width: 100%;
+}
+

@@ -26,7 +26,7 @@ const Login = () => {
                   className="input100"
                   type="text"
                   name="username"
-                  placeholder="User name"
+                  placeholder="email"
                 />
               </div>
               <div className="validate-input input-password" data-validate="Enter password">
