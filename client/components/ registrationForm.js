@@ -1,10 +1,22 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Head from './head'
 import { history } from '../redux'
+import {
+  registrationLogin,
+  registrationPassword,
+  registrationPhone,
+  registrationUserName
+} from '../redux/reducers/registration'
 
 import './registration.scss'
 
 const Registration = () => {
+  const dispatch = useDispatch()
+  const login = useSelector((s) => s.registration.email)
+  const password = useSelector((s) => s.registration.password)
+  const phone = useSelector((s) => s.registration.phone)
+  const userName = useSelector((s) => s.registration.userName)
   return (
     <div>
       <Head title="Hello" />
@@ -14,16 +26,52 @@ const Registration = () => {
             <div className="form-title"> Registration Account</div>
             <form className="form validate-form ">
               <div className="validate-input input-text" data-validate="Enter username">
-                <input className="input100" type="text" name="username" placeholder="User name" />
+                <input
+                  onChange={(e) => {
+                    dispatch(registrationUserName(e.target.value))
+                  }}
+                  value={userName}
+                  className="input100"
+                  type="text"
+                  name="username"
+                  placeholder="User name"
+                />
               </div>
               <div className="validate-input input-password" data-validate="Enter password">
-                <input className="input100" type="password" name="pass" placeholder="Password" />
+                <input
+                  onChange={(e) => {
+                    dispatch(registrationPassword(e.target.value))
+                  }}
+                  value={password}
+                  className="input100"
+                  type="password"
+                  name="pass"
+                  placeholder="Password"
+                />
               </div>
               <div className="validate-input input-email" data-validate="Enter email">
-                <input className="input100" type="text" name="email" placeholder="Email" />
+                <input
+                  onChange={(e) => {
+                    dispatch(registrationLogin(e.target.value))
+                  }}
+                  value={login}
+                  className="input100"
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                />
               </div>
               <div className="validate-input input-phone" data-validate="Enter phone">
-                <input className="input100" type="text" name="phone" placeholder="Phone" />
+                <input
+                  onChange={(e) => {
+                    dispatch(registrationPhone(e.target.value))
+                  }}
+                  value={phone}
+                  className="input100"
+                  type="text"
+                  name="phone"
+                  placeholder="Phone"
+                />
               </div>
               <div className="container-form-btn">
                 <button

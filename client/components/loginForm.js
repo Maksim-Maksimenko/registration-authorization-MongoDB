@@ -7,7 +7,7 @@ import { upadateLogin, upadatePassword, logIn } from '../redux/reducers/auth'
 
 const Login = () => {
   const dispatch = useDispatch()
-  const login = useSelector((s) => s.auth.login)
+  const login = useSelector((s) => s.auth.email)
   const password = useSelector((s) => s.auth.password)
   return (
     <div>
