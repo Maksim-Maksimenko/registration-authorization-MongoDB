@@ -1,20 +1,15 @@
-import Cookies from 'universal-cookie'
 import { history } from '..'
 
 const REGISTRATION_LOGIN = 'REGISTRATION_LOGIN'
 const REGISTRATION_PASSWORD = 'REGISTRATION_PASSWORD'
 const REGISTRATION_PHONE = 'REGISTRATION_PHONE'
 const REGISTRATION_USER_NAME = 'REGISTRATION_USER_NAME'
-const LOGIN = 'LOGIN'
-
-const cookies = new Cookies()
 
 const initialState = {
   email: '',
   password: '',
   phone: '',
   userName: '',
-  token: cookies.get('token'),
   user: {}
 }
 
@@ -31,14 +26,6 @@ export default (state = initialState, action) => {
     }
     case REGISTRATION_USER_NAME: {
       return { ...state, userName: action.userName }
-    }
-    case LOGIN: {
-      return {
-        ...state,
-        token: action.token,
-        password: '',
-        user: action.user
-      }
     }
     default:
       return state

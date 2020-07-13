@@ -17,7 +17,7 @@ const Login = () => {
           <div className="register w-1/4 h-auto rounded-lg">
             <div className="form-title">Account Login</div>
             <form className="form validate-form ">
-              <div className="validate-input input-text" data-validate="Enter username">
+              <div className="validate-input input-text" data-validate="Enter email">
                 <input
                   onChange={(e) => {
                     dispatch(upadateLogin(e.target.value))
