@@ -1,3 +1,4 @@
+import Cookies from 'universal-cookie'
 import { history } from '..'
 
 const REGISTRATION_LOGIN = 'REGISTRATION_LOGIN'
@@ -6,11 +7,14 @@ const REGISTRATION_PHONE = 'REGISTRATION_PHONE'
 const REGISTRATION_USER_NAME = 'REGISTRATION_USER_NAME'
 const LOGIN = 'LOGIN'
 
+const cookies = new Cookies()
+
 const initialState = {
   email: '',
   password: '',
   phone: '',
   userName: '',
+  token: cookies.get('token'),
   user: {}
 }
 
@@ -29,7 +33,12 @@ export default (state = initialState, action) => {
       return { ...state, userName: action.userName }
     }
     case LOGIN: {
-      return { ...state, token: action.token, password: '', user: action.user }
+      return {
+        ...state,
+        token: action.token,
+        password: '',
+        user: action.user
+      }
     }
     default:
       return state
@@ -63,11 +72,9 @@ export function SignUp() {
         phone,
         userName
       })
+    }).then((r) => {
+      r.json()
+      history.push('/')
     })
-      .then((r) => r.json())
-      .then((data) => {
-        dispatch({ type: LOGIN, token: data.token, user: data.user }) // не все !!!!!
-        history.push('/')
-      })
   }
 }

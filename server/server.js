@@ -103,6 +103,14 @@ server.post('/api/v1/registration', async (req, res) => {
     userName: `${req.body.userName}`
   })
   user.save()
+  connections.forEach((c) => {
+    c.write(
+      JSON.stringify({
+        type: 'SHOW_MASSAGE',
+        message: `${req.body.userName}, are you registered`
+      }) // увидомление о регистрации
+    )
+  })
   res.json({ status: 'ok' })
 }) // регистрация
 
