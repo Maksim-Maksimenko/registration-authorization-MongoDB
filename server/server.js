@@ -20,8 +20,10 @@ const Root = () => ''
 mongooseService.connect()
 
 // const user = new User({
-//   email: 'test@gmail.com',
-//   password: '12345'
+//   email: 'test1@gmail.com',
+//   password: '123',
+//   phone: '+375295293916',
+//   userName: 'Maksim'
 // })
 // user.save()
 // создали для тестов пользователя
@@ -83,7 +85,7 @@ server.post('/api/v1/auth', async (req, res) => {
     delete user.password
     res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 48 })
     connections.forEach((c) => {
-      c.write(JSON.stringify({ type: 'SHOW_MASSAGE', message: `Hello, ${user.email}` }))
+      c.write(JSON.stringify({ type: 'SHOW_MASSAGE', message: `Hello, ${user.userName}` }))
     }) // всплывающе сообщение через веб сокеты
     res.json({ status: 'ok', token, user })
   } catch (err) {
@@ -91,6 +93,18 @@ server.post('/api/v1/auth', async (req, res) => {
     res.json({ status: 'error', err })
   }
 })
+
+server.post('/api/v1/registration', async (req, res) => {
+  console.log(req.body)
+  const user = new User({
+    email: `${req.body.email}`,
+    password: `${req.body.password}`,
+    phone: `${req.body.phone}`,
+    userName: `${req.body.userName}`
+  })
+  user.save()
+  res.json({ status: 'ok' })
+}) // регистрация
 
 server.get('/api/v1/user-info', auth([]), (req, res) => {
   res.json({ status: 'ok' })

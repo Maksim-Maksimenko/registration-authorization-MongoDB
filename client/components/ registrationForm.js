@@ -1,12 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Head from './head'
-import { history } from '../redux'
+// import { history } from '../redux'
 import {
   registrationLogin,
   registrationPassword,
   registrationPhone,
-  registrationUserName
+  registrationUserName,
+  SignUp
 } from '../redux/reducers/registration'
 
 import './registration.scss'
@@ -76,7 +77,7 @@ const Registration = () => {
               <div className="container-form-btn">
                 <button
                   onClick={() => {
-                    history.push(`/`)
+                    dispatch(SignUp())
                   }}
                   type="button"
                   className="form-btn"

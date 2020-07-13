@@ -1,13 +1,17 @@
+import { history } from '..'
+
 const REGISTRATION_LOGIN = 'REGISTRATION_LOGIN'
 const REGISTRATION_PASSWORD = 'REGISTRATION_PASSWORD'
 const REGISTRATION_PHONE = 'REGISTRATION_PHONE'
 const REGISTRATION_USER_NAME = 'REGISTRATION_USER_NAME'
+const LOGIN = 'LOGIN'
 
 const initialState = {
   email: '',
   password: '',
   phone: '',
-  userName: ''
+  userName: '',
+  user: {}
 }
 
 export default (state = initialState, action) => {
@@ -23,6 +27,9 @@ export default (state = initialState, action) => {
     }
     case REGISTRATION_USER_NAME: {
       return { ...state, userName: action.userName }
+    }
+    case LOGIN: {
+      return { ...state, token: action.token, password: '', user: action.user }
     }
     default:
       return state
@@ -40,4 +47,27 @@ export function registrationPhone(phone) {
 }
 export function registrationUserName(userName) {
   return { type: REGISTRATION_USER_NAME, userName }
+}
+
+export function SignUp() {
+  return (dispatch, getState) => {
+    const { email, password, phone, userName } = getState().registration
+    fetch('/api/v1/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        phone,
+        userName
+      })
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        dispatch({ type: LOGIN, token: data.token, user: data.user }) // не все !!!!!
+        history.push('/')
+      })
+  }
 }
